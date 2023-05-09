@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event and EventHandlers</title>
+</head>
+<body>
+    <!-- // Event ?? kind of action which happended on web page
+    // EventHandlers ? kind of mechanism which work after action or Event -->
+        
+    <!--  -->
+    <!--  -->
+    <!-- onkeyup="checkfuntion()" -->
+    <!-- onclick="clickbtn()" -->
+    <!-- onclick="paraclick()" -->
+   <p >your name  <button id="btn" value="abc">click here</button>
+
+    <a href="https://qrcode.darwinstech.com/qrcode">MDN</a>
+   </p>
+    <script>
+
+        const btnForClick = document.getElementById("btn");
+        const anchor = document.getElementsByTagName("a").item(0)
+        
+        const paraclick = ()=>{
+            console.log("i am paragraph");
+
+        }
+        function clickbtn(event){
+
+            console.log(event.target);
+            // console.log("click btn");
+            // btnForClick.removeEventListener("click",clickbtn)
+           
+        }
+
+        const checkfuntion = ()=>{
+            console.log("hello world")
+        }
+
+        const prevent = (e)=>{                                                                 
+            event.preventDefault();
+            console.log(e.target.href);
+        }
+
+        anchor.addEventListener("click",prevent);
+
+
+        // btnForClick.addEventListener("keypress",()=>{
+        //     console.log("hello world")
+        // })
+
+        btnForClick.addEventListener("click",clickbtn);
+        
+
+       
+
+
+        // window.addEventListener("click",function(){
+        //     console.log("hello darwin");
+        // })
+    </script>
+</body>
+</html>

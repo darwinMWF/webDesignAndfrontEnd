@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo list</title>
+</head>
+
+<body>
+    <div class="getlist">
+        <input type="text" placeholder="eg.homework">
+        <button id="AddBtn">Add</button>
+    </div>
+    <div class="listDiv">
+        <!-- <h5>task</h5>
+        <button>Edit</button>
+        <button>Delete</button>  -->
+    </div>
+    <button onclick="DeleteAll()">DeleteAll</button>
+
+    <script>
+        const inputBtn = document.querySelector("input");
+        const Addbtn = document.getElementById("AddBtn");
+        const divForAddList = document.querySelector(".listDiv");
+        let changeElement;
+        let changeFlag = false;
+
+
+
+        Addbtn.addEventListener("click", () => {
+            let data = inputBtn.value;
+
+            if(data !== "" && !changeFlag){
+                divForAddList.innerHTML +=
+                `
+            <div class="list">
+            <span>${data}</span>
+            <button id="editBtn"onclick="editBtn(this)">Edit</button>
+            <button id="deletBtn" onclick="DeleteBtn(this)">Delete</button>    
+            </div>
+            `
+
+            inputBtn.value = ""
+            }else if(data !== "" && changeFlag){
+                changeElement.innerHTML = data;
+                inputBtn.value = "";
+                Addbtn.textContent = "Add";
+                changeFlag=false;
+                
+
+
+
+            }
+
+            }
+
+            
+        )
+
+        function DeleteBtn(object){
+            // console.log(object.parentElement)
+           divForAddList.removeChild(object.parentElement);
+
+        }
+        
+        function editBtn(object){
+            changeElement = object.previousSibling.previousSibling;
+            inputBtn.value = changeElement.innerHTML;
+            changeFlag = true;
+            Addbtn.textContent = "edit";
+
+        }
+
+        function DeleteAll(){
+            divForAddList.innerHTML = "";
+        }
+
+        
+
+
+    </script>
+</body>
+
+</html>

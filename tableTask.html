@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table</title>
+</head>
+
+<body>
+    <button>1</button>
+    <button>2</button>
+    <div id="root"></div>
+    <script>
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+        const object = { name: '', age: '', quali: '',gender:'' };
+        const arry1 = [
+            { name: "naresh", age: 25, qualification: "b.com",gender: "male " },
+            { name: "mukesh", age: 35, qualification: "b.tech", gender: "male " },
+            { name: "yogesh", age: 15, qualification: "ba",gender: "male "},
+            { name: "yogesh", age: 15, qualification: "ba", gender: "male" },
+            { name: "yogesh", age: 15, qualification: "ba",gender: "male " },
+            { name: "yogesh", age: 15, qualification: "ba", gender: "male " },
+            { name: "yogesh", age: 15, qualification: "ba", gender: "male " },
+            { name: "yogesh", age: 15, qualification: "ba", gender: "male " },
+            { name: "yogesh", age: 15, qualification: "ba" }
+        ]
+        // console.log(object.name)
+
+        // console.log(arry[1].age)
+        // const brrry = [1,2,3];
+        // brry[2]
+
+
+        for (const key in object) {
+
+            // console.log(object[key])
+            const theading = document.createElement("th");
+            const textheading = document.createTextNode(key);
+            theading.appendChild(textheading);
+            thead.appendChild(theading)
+        }
+
+        // for(let x = 0; x<arry.length;x++){
+
+        //     const trow = document.createElement("tr");
+        //     const tdata1 = document.createElement("td");
+        //     const tdata2 = document.createElement("td");
+        //     const tdata3 = document.createElement("td");
+
+        //     const textdataofTd1 = document.createTextNode(arry[x].name);
+        //     tdata1.appendChild(textdataofTd1)
+        //     const textdataofTd2 = document.createTextNode(arry[x].age);
+        //     tdata2.appendChild(textdataofTd2)
+        //     const textdataofTd3 = document.createTextNode(arry[x].qualification);
+        //     tdata3.appendChild(textdataofTd3);
+
+        //     trow.appendChild(tdata1)
+        //     trow.appendChild(tdata2)
+        //     trow.appendChild(tdata3)
+
+        //     tbody.appendChild(trow)
+
+
+
+        // }
+
+        arry.forEach(data => {
+            const trow = document.createElement("tr");
+            for (const key in data) {
+                const tdata = document.createElement("td");
+                const textdataofTd = document.createTextNode(data[key]);
+                tdata.appendChild(textdataofTd);
+                trow.appendChild(tdata)
+            }
+            tbody.appendChild(trow)
+        })
+
+
+
+        table.appendChild(thead);
+        table.appendChild(tbody)
+        document.body.appendChild(table);
+    </script>
+</body>
+
+</html>
