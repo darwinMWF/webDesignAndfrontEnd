@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👨‍🎓 Quiz Game</title>
+</head>
+
+<body>
+    <div id="container">
+        <button type="submit" id="start">startQuiz</button>
+        <div id="questionsDiv"></div>
+        <div id="options"></div>
+        <button type="submit" id="next" onclick="FornextQuestions()">Next</button>
+    </div>
+
+    <script>
+        const mainDiv = document.getElementById("container");
+        const divForQuestions = document.getElementById("questionsDiv");
+        const DivForOptions = document.getElementById("options");
+        const nextBtn = document.getElementById("next");
+        const startBtn = document.getElementById("start");
+        let index = 0;
+        let score = 0;
+
+        const questionsArry = [
+            {
+                question: "what is my name ?",
+                options: {
+                    A: "ajay",
+                    B: "suresh",
+                    C: "Prakash",
+                    D: "divya"
+                },
+                Answer: "C.Prakash"
+
+            },
+            {
+                question: "what is my surname ?",
+                options: {
+                    A: "ajay",
+                    B: "suresh",
+                    C: "Prajapat",
+                    D: "divya"
+                },
+                Answer: "C.Prajapat"
+
+            },
+            {
+                question: "what is my wife name?",
+                options: {
+                    A: "ajayi",
+                    B: "sureshui",
+                    C: "vijaya",
+                    D: "none"
+                },
+                Answer: "D.none"
+
+            }
+        ]
+        // console.log()
+
+        startBtn.style.display = "block";
+        nextBtn.style.display = "none";
+        startBtn.addEventListener("click", startQuiz);
+
+        function startQuiz() {
+            startBtn.style.display = "none";
+            const optionObject = questionsArry[index].options
+
+            divForQuestions.innerHTML = `<p>${questionsArry[index].question}</p>`;
+            for (const key in optionObject) {
+                DivForOptions.innerHTML += `<div class="options" onclick="compareAnswer(this,${index})">${key + "."}${optionObject[key]}<div>`
+            }
+
+            nextBtn.style.display = "block";
+            index++;
+
+        }
+
+        function FornextQuestions() {
+            divForQuestions.innerHTML = "";
+            DivForOptions.innerHTML = "";
+
+            if (index <= (questionsArry.length - 1)) {
+                const optionObject = questionsArry[index].options
+
+                divForQuestions.innerHTML = `<p>${questionsArry[index].question}</p>`;
+                for (const key in optionObject) {
+                    DivForOptions.innerHTML += `<div class="options" onclick="compareAnswer(this,${index})">${key + "."+optionObject[key]}<div>`
+                }
+
+                index++;
+            } else {
+                mainDiv.innerHTML = "";
+                mainDiv.innerHTML = 
+                `
+                <p>Your Score<p>
+                    <h3>${score}</h3>
+                `
+            }
+        }
+
+        function compareAnswer(object,index){
+            let count = 0;
+            if(count<1){
+                object.removeChild(object.children[0]);
+                if(questionsArry[index].Answer === object.innerHTML){
+                score += 10;
+                object.style.color ="green"
+                }else{
+                object.style.color ="red"
+                }
+                count++;
+            }
+            
+            
+            
+           
+
+            
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
