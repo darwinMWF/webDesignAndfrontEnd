@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>regEx</title>
+</head>
+
+<body>
+        <form action="">
+            <label for="userName">Name</label>
+            <input type="text" id="userName" placeholder="Mukesh prajapat" >
+            <br>
+            <label for="email">email</label>
+            <input type="email" id="emailId" placeholder="abc245@gmail.com">
+            <br>
+            <button type="submit" id="submitBtn">submit</button>
+
+        </form>
+    <script>
+        // const regx = new RegExp("abc[A-Z]");
+        // console.log(regx);
+        // const regx1 = /[^abcd]/;
+        // console.log(regx1.test("my name is avbcabc"));
+        // console.log(regx.test("deabc"))
+        // const pattern = /[0-9]/;
+        // console.log(pattern.test(" khan 53467 09 78"))
+        // const pt = /[^0-9]/;//\d \S \W
+        // console.log(regx1.test("snfsjk"));
+        // console.log( pt.exec("hdhh 45 name 2454"))
+        // console.log(typeof(pt));
+        // const emailValidation = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        // console.log(emailValidation.test("334gmail.com"))
+
+        const userName = document.getElementById("userName");
+        console.log(userName)
+        const userEmail = document.getElementById("emailId");
+
+        const namePattern = /^[A-Za-z][A-Za-z0-9_]{7,29}$/
+        const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
+        userName.addEventListener("input",matchPattern);
+        userEmail.addEventListener("input",EmailmatchPattern);
+
+        function matchPattern(object){
+            // console.log(object.target.value)
+            const bool = namePattern.test(object.target.value);
+            if(bool){
+                userName.style.borderColor="green";
+                // console.log(bool)
+            }else{
+                userName.style.borderColor="red";
+                // console.log(bool)
+            }
+        }
+
+
+        function EmailmatchPattern(object){
+            // console.log(object.target.value)
+            const bool = emailPattern.test(object.target.value);
+            if(bool){
+                userEmail.style.borderColor="green";
+                // console.log(bool)
+            }else{
+                userEmail.style.borderColor="red";
+                // console.log(bool)
+            }
+        }
+
+        // function 
+
+
+        
+
+    </script>
+</body>
+
+</html>
