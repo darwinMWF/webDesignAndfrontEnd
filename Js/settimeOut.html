@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="call">call</button>
+    <button id="cancel">cancel</button>
+    <h1>HELLO</h1>
+    <script>
+
+        const call = document.getElementById("call");
+        const cancel = document.getElementById("cancel");
+
+        let timer;
+        // function printInfo(){
+        //     console.log("hello");
+        // }
+
+        let count = 0;
+        // if(count == 5){
+        //     clearTimeout(timer);
+        // }
+
+
+        let Interval;
+
+        function callButton() {
+            // timer = setTimeout(() => {
+            //     console.log("hello darwin");
+            // }, 3000);
+            Interval = setInterval(() => {
+                console.log("hello world");
+                count++;
+            }, 2000)
+        }
+        function cancelButton() {
+            // clearTimeout(timer);
+            clearInterval(Interval);
+            Interval = null;
+        }
+
+        call.addEventListener("click", callButton);
+        cancel.addEventListener("click", cancelButton);
+
+        
+
+        // if (count < 5) {
+        //     if(!Interval){
+                
+        //     }
+            
+        // } else {
+        //     clearInterval(Interval);
+        //     Interval = null
+        // }
+
+//         let nIntervId;
+
+// function changeColor() {
+//   // check if an interval has already been set up
+//   if (!nIntervId) {
+//     nIntervId = setInterval(flashText, 1000);
+//   }
+// }
+
+// function flashText() {
+//   const oElem = document.getElementById("my_box");
+//   oElem.className = oElem.className === "go" ? "stop" : "go";
+// }
+
+// function stopTextColor() {
+//   clearInterval(nIntervId);
+//   // release our intervalID from the variable
+//   nIntervId = null;
+// }
+
+// document.getElementById("start").addEventListener("click", changeColor);
+// document.getElementById("stop").addEventListener("click", stopTextColor);
+
+
+    </script>
+</body>
+
+</html>
