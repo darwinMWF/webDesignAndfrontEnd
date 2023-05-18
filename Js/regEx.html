@@ -6,20 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>regEx</title>
+    <style>
+        .success {
+            border: 2px solid rgb(18, 194, 106);
+            outline: none;
+
+        }
+
+        .error {
+            border: 2px solid red;
+            outline:none;
+        }
+    </style>
 </head>
 
 <body>
-        <form action="">
-            <label for="userName">Name</label>
-            <input type="text" id="userName" placeholder="Mukesh prajapat" >
-            <br>
-            <label for="email">email</label>
-            <input type="email" id="emailId" placeholder="abc245@gmail.com">
-            <br>
-            <button type="submit" id="submitBtn">submit</button>
+    <form action="" id="formData">
+        <label for="userName">Name</label>
+        <input type="text" id="userName" placeholder="Mukesh prajapat">
+        <br>
+        <label for="emailId">email</label>
+        <input type="email" id="emailId" placeholder="abc245@gmail.com">
+        <br>
+        <button type="submit" id="submitBtn">submit</button>
 
-        </form>
+    </form>
     <script>
+        // regEx lecture example
         // const regx = new RegExp("abc[A-Z]");
         // console.log(regx);
         // const regx1 = /[^abcd]/;
@@ -35,44 +48,70 @@
         // console.log(emailValidation.test("334gmail.com"))
 
         const userName = document.getElementById("userName");
-        console.log(userName)
         const userEmail = document.getElementById("emailId");
+        const form = document.getElementById("formData");
 
         const namePattern = /^[A-Za-z][A-Za-z0-9_]{7,29}$/
         const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
-        userName.addEventListener("input",matchPattern);
-        userEmail.addEventListener("input",EmailmatchPattern);
+        // userName.addEventListener("input",);
+        // userEmail.addEventListener("input", EmailmatchPattern);
 
-        function matchPattern(object){
+        function matchPattern(value) {
             // console.log(object.target.value)
-            const bool = namePattern.test(object.target.value);
-            if(bool){
-                userName.style.borderColor="green";
+            const bool = namePattern.test(value);
+            if (bool) {
+                userName.classList.add("success");
+                userName.classList.remove("error")
+                
                 // console.log(bool)
-            }else{
-                userName.style.borderColor="red";
+            } else {
+                userName.classList.add("error")
+                userName.classList.remove("success")
                 // console.log(bool)
             }
         }
 
 
-        function EmailmatchPattern(object){
+        function EmailmatchPattern(value) {
             // console.log(object.target.value)
-            const bool = emailPattern.test(object.target.value);
-            if(bool){
-                userEmail.style.borderColor="green";
+            const bool = emailPattern.test(value);
+            if (bool) {
+                userEmail.classList.add("success")
+                userEmail.classList.remove("error")
                 // console.log(bool)
-            }else{
-                userEmail.style.borderColor="red";
+            } else {
+                userEmail.classList.add("error");
+                userEmail.classList.remove("success");
                 // console.log(bool)
             }
         }
 
-        // function 
+
+        function debounce(func, timeout = 500) {
+            
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => { func.apply(this, args); }, timeout);
+            };
+        }
 
 
-        
+        form.addEventListener("input", debounce((e) => {
+            // console.log(e.target.value)
+            switch (e.target.id) {
+                case 'emailId':
+                    EmailmatchPattern(e.target.value);
+                    break;
+                case 'userName':
+                    matchPattern(e.target.value);   
+                    break;
+            }
+        }))
+
+
+
 
     </script>
 </body>
