@@ -6,6 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👨‍🎓 Quiz Game</title>
+    <style>
+    input[type="radio"] {
+    position: relative;
+    display: none;
+}
+
+
+input[type=radio]:checked ~ .options {
+	background:rgb(214, 120, 120);
+    width:5rem;
+}
+    </style>
 </head>
 
 <body>
@@ -14,6 +26,9 @@
         <div id="questionsDiv"></div>
         <div id="options"></div>
         <button type="submit" id="next" onclick="FornextQuestions()">Next</button>
+        <button type="submit" id="previous" onclick="forpreviosQuestions()">previous</button>
+        <button type="submit" id="submitAnswer" onclick=" submitAnswer()">submit</button>
+        
     </div>
 
     <script>
@@ -21,12 +36,18 @@
         const divForQuestions = document.getElementById("questionsDiv");
         const DivForOptions = document.getElementById("options");
         const nextBtn = document.getElementById("next");
+        const previousBtn = document.getElementById("previous");
+        const submitBtn = document.getElementById("submitAnswer");
         const startBtn = document.getElementById("start");
+        const restart = document.getElementById("restart");
+
         let index = 0;
         let score = 0;
+        let answerArry = [];
 
         const questionsArry = [
             {
+                id:0,
                 question: "what is my name ?",
                 options: {
                     A: "ajay",
@@ -38,6 +59,7 @@
 
             },
             {
+                id:1,
                 question: "what is my surname ?",
                 options: {
                     A: "ajay",
@@ -49,6 +71,7 @@
 
             },
             {
+                id:2,
                 question: "what is my wife name?",
                 options: {
                     A: "ajayi",
@@ -64,68 +87,113 @@
 
         startBtn.style.display = "block";
         nextBtn.style.display = "none";
+        previousBtn.style.display="none";
+        submitBtn.style.display="none"
+        restart.style.display="none";
+        
         startBtn.addEventListener("click", startQuiz);
+        
 
+        
         function startQuiz() {
             startBtn.style.display = "none";
             const optionObject = questionsArry[index].options
-
+            
             divForQuestions.innerHTML = `<p>${questionsArry[index].question}</p>`;
             for (const key in optionObject) {
-                DivForOptions.innerHTML += `<div class="options" onclick="compareAnswer(this,${index})">${key + "."}${optionObject[key]}<div>`
+                DivForOptions.innerHTML += `
+                <label>
+                <input type="radio" name="option" oninput="inputAnswer(questionsArry[index].id)" value=${key + "."+optionObject[key]} >
+                <div class="options">${key + "."}${optionObject[key]}<div>
+                <label>
+                    `
             }
 
             nextBtn.style.display = "block";
-            index++;
+            
 
         }
 
         function FornextQuestions() {
+            index++;
             divForQuestions.innerHTML = "";
             DivForOptions.innerHTML = "";
-
+            previousBtn.style.display = "block"
+            
+            if(index === questionsArry.length-1){
+                submitBtn.style.display = "block";
+                nextBtn.style.display="none";
+                
+            }
             if (index <= (questionsArry.length - 1)) {
                 const optionObject = questionsArry[index].options
 
                 divForQuestions.innerHTML = `<p>${questionsArry[index].question}</p>`;
                 for (const key in optionObject) {
-                    DivForOptions.innerHTML += `<div class="options" onclick="compareAnswer(this,${index})">${key + "."+optionObject[key]}<div>`
+                    DivForOptions.innerHTML += `
+                    <label>
+                    <input type="radio" name="option" oninput="inputAnswer(questionsArry[index].id)" value=${key + "."+optionObject[key]}>
+                    <div class="options">${key + "."+optionObject[key]}<div>
+                    <label>`
                 }
 
-                index++;
-            } else {
+                
+            } 
+        }
+
+        function forpreviosQuestions(){
+            index--;
+            if(index === 0){
+                previousBtn.style.display="none";
+            }
+            if(index < questionsArry.length-1){
+                submitBtn.style.display = "none";
+                nextBtn.style.display="block";
+            }
+            if(index => 0 ){
+                const optionObject = questionsArry[index].options
+                divForQuestions.innerHTML = "";
+                DivForOptions.innerHTML = "";
+                divForQuestions.innerHTML = `<p>${questionsArry[index].question}</p>`;
+                for (const key in optionObject) {
+                    DivForOptions.innerHTML += `
+                    <label>
+                    <input type="radio" name="option" oninput="inputAnswer(questionsArry[index].id)" value=${key + "."+optionObject[key]}>
+                    <div class="options">${key + "."+optionObject[key]}<div>
+                    <label>`
+                }
+            }
+           
+        }
+
+        function inputAnswer(id){
+            answerArry[id] = document.querySelector('input[name="option"]:checked').value;
+            
+            
+        }
+
+
+
+        function submitAnswer(){
+            answerArry.forEach((data,index)=>{
+                console.log(data);
+                if(data === questionsArry[index].Answer){
+                    score = score + 10;
+                    console.log(score);
+                }
+            })
+           
                 mainDiv.innerHTML = "";
                 mainDiv.innerHTML = 
                 `
                 <p>Your Score<p>
-                    <h3>${score}</h3>
+                <h3>${score}</h3>
+                <button type="submit" id="restart" onclick="startQuiz()">restart</button>
                 `
-            }
-        }
-
-        function compareAnswer(object,index){
-            let count = 0;
-            if(count<1){
-                object.removeChild(object.children[0]);
-                if(questionsArry[index].Answer === object.innerHTML){
-                score += 10;
-                object.style.color ="green"
-                }else{
-                object.style.color ="red"
-                }
-                count++;
-            }
-            
-            
-            
+                
            
-
-            
         }
-
-
-
-
+        
     </script>
 </body>
 
